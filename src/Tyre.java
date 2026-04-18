@@ -1,29 +1,52 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Tyre {
     private final String tire_compound;
     private final double life_span;
-    private final double friction_multiplier;
-    private final double degredation_rate;
+    // Maps to store weather-specific multipliers
+    private final Map<String, Double> frictionMultipliers;
+    private final Map<String, Double> degradationRates;
 
-    public Tyre(String tireCompound, double lifeSpan, double frictionMultiplier, double degredationRate) {
+
+    public Tyre(String tireCompound, double lifeSpan) {
         this.tire_compound = tireCompound;
         this.life_span = lifeSpan;
-        this.friction_multiplier = frictionMultiplier;
-        this.degredation_rate = degredationRate;
+        this.frictionMultipliers = new HashMap<>();
+        this.degradationRates = new HashMap<>();
     }
 
-    public String getTireCompound() {
-        return tire_compound;
+    // Getters
+    public String getTireCompound() { return tire_compound; }
+    public double getLifeSpan() {return life_span; }
+
+    /**
+     * Adds a friction multiplier for a specific weather condition.
+     * Use keys like "dry", "cold", "light_rain", "heavy_rain"
+     */
+    public void addFrictionMultiplier(String condition, double multiplier) {
+        frictionMultipliers.put(condition, multiplier);
     }
 
-    public double getLifeSpan() {
-        return life_span;
+    /**
+     * Adds a degradation rate for a specific weather condition.
+     */
+    public void addDegradationRate(String condition, double rate) {
+        degradationRates.put(condition, rate);
     }
 
-    public double getFrictionMultiplier() {
-        return friction_multiplier;
+    /**
+     * Retrieves the friction multiplier for the current weather.
+     * Returns 1.0 as a safe default if the condition isn't found.
+     */
+    public double getFrictionForCondition(String condition) {
+        return frictionMultipliers.getOrDefault(condition, 1.0);
     }
 
-    public double getDegredationRate() {
-        return degredation_rate;
+    /**
+     * Retrieves the degradation rate for the current weather.
+     */
+    public double getDegradationForCondition(String condition) {
+        return degradationRates.getOrDefault(condition, 0.1);
     }
 }
