@@ -10,18 +10,26 @@ public class Track {
         this.segments = new ArrayList<>();
     }
 
+    /**
+     * Adds a segment (Straight or Corner) to the track layout.
+     */
     public void addSegment(Segment segment) {
         this.segments.add(segment);
     }
 
-    public List<Segment> getSegments() {
-        return segments;
-    }
+    public List<Segment> getSegments() { return segments; }
 
+    public int getSementCount() { return segments.size(); }
+
+    /**
+     * Retrieves the segment following the current one.
+     * If the current segment is the last one, it returns the first segment
+     * (representing the start of a new lap).
+     */
     public Segment getNextSegment(int currentIndex) {
-        if(currentIndex + 1 < segments.size()) {
-            return segments.get(currentIndex + 1);
-        }
-        return segments.get(0);
+        if (segments.isEmpty()) return null;
+
+        int nextIndex = (currentIndex + 1) % segments.size();
+        return segments.get(nextIndex);
     }
 }
