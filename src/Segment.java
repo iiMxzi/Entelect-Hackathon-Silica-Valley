@@ -1,9 +1,9 @@
 public abstract class Segment {
     private final int id;
-    private final int length;
+    private final double length;
     private final String type;
 
-    public Segment(int id, int length, String type){
+    public Segment(int id, double length, String type){
         this.id = id;
         this.length = length;
         this.type = type;
@@ -13,7 +13,7 @@ public abstract class Segment {
         return id;
     }
 
-    public int getLength() {
+    public double getLength() {
         return length;
     }
 

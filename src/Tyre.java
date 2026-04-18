@@ -9,15 +9,15 @@ public class Tyre {
         this.degredation_rate = degredationRate;
     }
 
-    public String getTire_compound() {
+    public String getTireCompound() {
         return tire_compound;
     }
 
-    public double getFriction_multiplier() {
+    public double getFrictionMultiplier() {
         return friction_multiplier;
     }
 
-    public double getDegredation_rate() {
+    public double getDegredationRate() {
         return degredation_rate;
     }
 }
