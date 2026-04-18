@@ -151,6 +151,7 @@ public class main {
 		name=line.substring(line.lastIndexOf(": \""), line.indexOf("\","));
 		
 		line=in.nextLine();
+		Segment seg;
 		while(!line.contains("]")) {
 			line= in.nextLine();
 			parts= line.split(", \"");
@@ -160,6 +161,7 @@ public class main {
 			if(parts[1].contains("straight")) {
 				type = parts[1].substring(parts[1].lastIndexOf(": \""), parts[1].lastIndexOf("\""));
 				length=Integer.parseInt(parts[2].substring(parts[2].indexOf(": "), parts[2].indexOf("},")));
+				
 			}else {
 				type = parts[1].substring(parts[1].lastIndexOf(": \""), parts[1].lastIndexOf("\""));
 				radius=Integer.parseInt(parts[2].substring(parts[2].indexOf(": ")));
@@ -167,12 +169,57 @@ public class main {
 			}
 			
 			//TODO: construct segments and track
+			
 		}
 		
 	}
 	
 	private static void readTyres(String info) {
+		Scanner in = new Scanner(info);
+		String line,top;
+		double life,dfm,cfm,lrfm,hrfm,dd,cd,lrd,hrd;
 		
+		Tyre t;
+		line = in.nextLine();
+		while(!line.contains("}")) {
+			line = in.nextLine();
+			top=line;
+			
+			life= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine()	;
+			dfm= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine()	;
+			cfm= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine()	;
+			lrfm= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine()	;
+			hrfm= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine()	;
+			dd= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine()	;
+			cd= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine()	;
+			lrd= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine()	;
+			hrd= Double.parseDouble(line.substring(line.lastIndexOf(": ")));
+	
+			if(top.contains("\"Soft\"")) {
+				t = new Tyre("Soft",life);
+			}else if(top.contains("\"Medium\"")){
+				t = new Tyre("Medium",life);
+			}else if(top.contains("\"Hard\"")){
+				t = new Tyre("Hard",life);
+			}else if(top.contains("\"Intermediate\"")){
+				t = new Tyre("Intermediate",life);
+			}else if(top.contains("\"Wet\"")){
+				t = new Tyre("Wet",life);
+			}
+			
+			
+			line= in.nextLine();
+			}
+				
+			
 	}
 	
 	private static void readSets(String info) {
@@ -180,6 +227,30 @@ public class main {
 	}
 	
 	private static void readWeather(String info) {
+		Scanner in = new Scanner(info);
+		String line,condition;
+		ArrayList<WeatherCondition> conditions = new ArrayList<>();
+		double duration,acc,dec;
+		int id;
 		
+		line= in.nextLine();
+		line= in.nextLine();
+		while(!line.contains("]")) {
+			line= in.nextLine();
+			id= Integer.parseInt(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine();
+			condition= line.substring(line.lastIndexOf(": \""), line.indexOf("\","));
+			line= in.nextLine();
+			duration= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine();
+			acc= Double.parseDouble(line.substring(line.lastIndexOf(": "), line.indexOf(',')));
+			line= in.nextLine();
+			dec= Double.parseDouble(line.substring(line.lastIndexOf(": ")));
+			
+			//TODO: add weather
+			conditions.add(new WeatherCondition(id,condition, duration, acc, dec));
+			line= in.nextLine();
+			line= in.nextLine();
+		}
 	}
 }
