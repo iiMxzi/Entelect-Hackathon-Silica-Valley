@@ -5,7 +5,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class main {
+	public static ArrayList<Tyre> tyres = new ArrayList<>();
+	public static ArrayList<WeatherCondition> conditions = new ArrayList<>();
+	public static ArrayList<Segment> track;
+	public static ArrayList<Tyre> available;
+	
 	public static void main(String args[]) {
 		
 		try {
@@ -143,7 +149,7 @@ public class main {
 	private static void readTrack(String info) {
 		Scanner in = new Scanner(info);
 		String line,name,type;
-		ArrayList<Segment> track;
+		
 		String[] parts;
 		int id,length,radius;
 		
@@ -179,7 +185,7 @@ public class main {
 		String line,top;
 		double life,dfm,cfm,lrfm,hrfm,dd,cd,lrd,hrd;
 		
-		Tyre t;
+		Tyre t = new Tyre("Soft", 1);
 		line = in.nextLine();
 		while(!line.contains("}")) {
 			line = in.nextLine();
@@ -215,7 +221,16 @@ public class main {
 				t = new Tyre("Wet",life);
 			}
 			
+			t.addFrictionMultiplier("dry", dfm);
+			t.addFrictionMultiplier("cold", cfm);
+			t.addFrictionMultiplier("light_rain", lrfm);
+			t.addFrictionMultiplier("heavy_rain", hrfm);
 			
+			t.addDegradationRate("dry", dd);
+			t.addDegradationRate("cold", cd);
+			t.addDegradationRate("light_rain", lrd);
+			t.addDegradationRate("heavy_rain", hrd);
+			tyres.add(t);
 			line= in.nextLine();
 			}
 				
@@ -223,13 +238,14 @@ public class main {
 	}
 	
 	private static void readSets(String info) {
-		
+		Scanner in = new Scanner(info);
+		String line,condition;
 	}
 	
 	private static void readWeather(String info) {
 		Scanner in = new Scanner(info);
 		String line,condition;
-		ArrayList<WeatherCondition> conditions = new ArrayList<>();
+		
 		double duration,acc,dec;
 		int id;
 		
